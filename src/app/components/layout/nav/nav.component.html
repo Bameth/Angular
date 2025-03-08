@@ -1,0 +1,32 @@
+<!-- Navigation -->
+<nav class="hidden lg:flex ml-10">
+    <ul class="flex space-x-8">
+        <li>
+            <a
+                routerLink="/catalogue"
+                routerLinkActive="text-black font-bold underline"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="text-gray-800 hover:text-black relative font-medium group" aria-current="page">
+                Catalogue
+            </a>
+        </li>
+        <li>
+            <a
+                routerLink="/catalogue/detail"
+                routerLinkActive="text-black font-bold underline"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="text-gray-800 hover:text-black relative font-medium group">
+                Detail
+            </a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-black relative font-medium group">Enfant</a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-black relative font-medium group">Collections</a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-black relative font-medium group">Nouveautés</a>
+        </li>
+    </ul>
+</nav>

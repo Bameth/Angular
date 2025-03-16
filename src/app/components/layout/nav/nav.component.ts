@@ -8,4 +8,17 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
+  private title: string | null = null;
+
+   links: Link[] = [
+    { name: 'Catalogue', path: '/catalogue', class: "text-gray-800 hover:text-black relative font-medium group", ariaCurrent: "page" },
+  ];
+
+}
+interface Link {
+  name: string;
+  path: string;
+  class: string;
+  sublinks?: Array<Link>;
+  ariaCurrent?: string;
 }

@@ -1,0 +1,72 @@
+/* Animations et transitions supplémentaires */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Styles généraux */
+  .page-enter {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* Effet de survol pour l'image principale */
+  .product-image-main:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Animation pour les boutons d'ajout au panier */
+  .btn-add-to-cart:hover {
+    animation: pulse 1s infinite;
+  }
+  
+  /* Transition pour les sections dépliables */
+  .collapsible-section {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .collapsible-section.open {
+    max-height: 500px;
+  }
+  
+  /* Style pour les messages d'erreur */
+  .error-message {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Styles pour le contrôle de quantité */
+  .quantity-control input::-webkit-outer-spin-button,
+  .quantity-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .quantity-control input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  
+  /* Style pour la notification toast */
+  .toast-notification {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* Effet de zoom sur les thumbnails au survol */
+  .thumbnail-image:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+  
+  /* Style pour mettre en évidence l'élément sélectionné */
+  .selected-item {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+  }

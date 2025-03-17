@@ -3,8 +3,7 @@
         <!-- Product Images -->
         <div class="space-y-4">
             <div class="aspect-square rounded-lg overflow-hidden bg-gray-100">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Nike Zoom"
-                    class="w-full h-full object-cover" />
+                <img src="{{produitDetail?.produit?.image}}" alt="Nike Zoom" class="w-full h-full object-cover" />
             </div>
             <div class="grid grid-cols-4 gap-4">
                 <div class="aspect-square rounded-lg overflow-hidden bg-gray-100 cursor-pointer hover:opacity-75">
@@ -29,8 +28,8 @@
         <!-- Product Info -->
         <div class="space-y-6">
             <div>
-                <h1 class="text-3xl font-bold mb-2">Nike Zoom Elite 5</h1>
-                <p class="text-xl text-gray-900 mb-4">199,99 €</p>
+                <h1 class="text-3xl font-bold mb-2">{{produitDetail?.produit?.name}}</h1>
+                <p class="text-xl text-gray-900 mb-4">{{produitDetail?.produit?.oldPrice}}</p>
                 <div class="flex items-center gap-1 mb-4">
                     <svg class="w-5 h-5 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24">
@@ -105,6 +104,20 @@
                         class="flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white text-sm font-medium hover:border-black hover:bg-black hover:text-white">47</button>
                 </div>
             </div>
+            <!-- Quantity Selector -->
+            <div class="space-y-4">
+                <h3 class="font-semibold text-gray-800">Quantité</h3>
+                <div class="flex items-center">
+                    <button
+                        class="flex h-12 w-12 items-center justify-center rounded-l-md border border-gray-300 bg-gray-100 text-xl font-bold hover:bg-gray-200 transition-colors duration-200 active:bg-gray-300">-</button>
+                    <label for="quantity" class="sr-only">Quantité</label>
+                    <input id="quantity" type="number" min="1" max="10"
+                        class="h-12 w-16 border-y border-gray-300 text-center text-lg font-medium focus:outline-none focus:ring-2 focus:ring-black" />
+                    <button
+                        class="flex h-12 w-12 items-center justify-center rounded-r-md border border-gray-300 bg-gray-100 text-xl font-bold hover:bg-gray-200 transition-colors duration-200 active:bg-gray-300">+</button>
+                    <!-- <div *ngIf="errorMessage" class="ml-4 text-red-600 text-sm">{{errorMessage}}</div> -->
+                </div>
+            </div>
 
             <!-- Add to Cart -->
             <button class="w-full h-14 text-lg bg-black text-white rounded-md hover:bg-gray-900 transition-colors">
@@ -124,10 +137,7 @@
                     </button>
                     <div id="description" class="pb-4">
                         <p class="text-gray-600">
-                            La Nike Zoom Elite 5 redéfinit la performance avec sa technologie de pointe.
-                            Conçue pour les coureurs exigeants, elle offre un amorti réactif et une
-                            stabilité exceptionnelle. Sa tige en mesh respirant assure un confort optimal
-                            pendant vos séances d'entraînement les plus intenses.
+                            {{produitDetail?.produit?.description}}
                         </p>
                     </div>
                 </div>
@@ -165,6 +175,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="relative overflow-hidden">
+        <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @for(produit of produitDetail?.relatedProducts; track produit.id){
+            <app-product-item [produit]="produit" />
+            }
         </div>
     </div>
 </section>

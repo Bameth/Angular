@@ -10,8 +10,13 @@ import { RouterModule } from '@angular/router';
 export class NavComponent {
   private title: string | null = null;
 
-   links: Link[] = [
-    { name: 'Catalogue', path: '/catalogue', class: "text-gray-800 hover:text-black relative font-medium group", ariaCurrent: "page" },
+  links: Link[] = [
+    {
+      name: 'Catalogue',
+      path: '/catalogue',
+      class: "text-gray-800 hover:text-black relative font-medium group",
+      ariaCurrent: "page"
+    },
   ];
 
 }

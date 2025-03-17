@@ -21,15 +21,15 @@
     <div class="space-y-3">
         <div class="flex justify-between items-start">
             <div>
-                <h3 class="font-medium text-lg" [textContent]="produit.nom"></h3>
+                <h3 class="font-medium text-lg" [textContent]="produit.name"></h3>
                 <p class="text-gray-600">{{produit.miniDescription}}</p>
             </div>
             <!-- oldPrice -->
-            <p class="text-gray-600 line-through">{{produit.oldPrice}}</p>
+            <!-- <p class="text-gray-600 line-through">{{produit.oldPrice}}</p> -->
             <p class="font-medium text-lg">{{produit.newPrice}}</p>
-            @if(produit.sold){
+            <!-- @if(produit.sold){
             <span class="text-sm text-gray-600">Sold</span>
-            }
+            } -->
         </div>
         <div class="flex gap-2">
             <div

@@ -9,7 +9,7 @@ export const routes: Routes = [
         component: PageCatalogueComponent,
     },
     {
-        path: 'catalogue/detail',
+        path: 'catalogue/detail/:product_id',
         component: PageDetailComponent,
     },
     {

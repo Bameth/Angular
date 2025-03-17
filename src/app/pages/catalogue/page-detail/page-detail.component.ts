@@ -1,13 +1,42 @@
-import { Component } from '@angular/core';
-import { HeaderComponent } from '../../../components/layout/header/header.component';
-import { FooterComponent } from '../../../components/layout/footer/footer.component';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CatalogueService } from '../../../shared/services/impl/catalogue.service';
+import { ProduitDetail } from '../../../shared/model/catalogue.model';
+import { ProductItemComponent } from "../../../components/catalogue/product-item/product-item.component";
 @Component({
   selector: 'app-page-detail',
-  imports: [],
+  standalone: true,
+  imports: [ProductItemComponent],
   templateUrl: './page-detail.component.html',
-  styleUrl: './page-detail.component.css'
+  styleUrls: ['./page-detail.component.css']
 })
-export class PageDetailComponent {
+export class PageDetailComponent implements OnInit {
+  produitDetail?: ProduitDetail;
+  errorMessage?: string;
+  quantity: number = 1;
 
+  constructor(
+    private route: ActivatedRoute,
+    private catalogueService: CatalogueService
+  ) { }
+
+  ngOnInit(): void {
+    let id = this.route.snapshot.params['product_id'];
+    console.log('Product ID:', id);
+    this.catalogueService.getProductsDetailCatalogue(id).subscribe((data) => {
+      this.produitDetail = data;
+      console.log("Données reçues :", data);
+    });
+  }
+  onValidateQte(): void {
+    if (!this.quantity || this.quantity < 1) {
+      this.quantity = 1;
+      this.errorMessage = "La quantité minimum est 1";
+    } else if (this.quantity > 10) {
+      this.quantity = 10;
+      this.errorMessage = "Quantité maximum atteinte (10)";
+    } else {
+      this.errorMessage = undefined;
+    }
+  }
 }

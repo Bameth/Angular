@@ -15,6 +15,13 @@ export class PageCatalogueComponent implements OnInit {
   private catalogueService: CatalogueService = inject(CatalogueService);
   products: ProduitCatalogue[] = [];
   ngOnInit(): void {
-    this.products = this.catalogueService.produits;
-  }
+    this.catalogueService.getProductsCatalogues().subscribe(
+      data => {
+        console.log("Données reçues :", data);
+        this.products = data;
+      },
+      error => console.log("Erreur lors du chargement des produits :", error)
+    );
+        // this.products = this.catalogueService.produits;
+  }  
 }

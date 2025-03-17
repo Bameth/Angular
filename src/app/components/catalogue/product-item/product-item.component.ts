@@ -16,7 +16,7 @@ export class ProductItemComponent {
   constructor(public router: Router) {
   }
   onLoadViewDetail(id: number) {
-    this.router.navigateByUrl('/catalogue/detail');
+    this.router.navigateByUrl(`/catalogue/detail/${id}`);
   }
 
 }

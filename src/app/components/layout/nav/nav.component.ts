@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { PanierService } from '../../../shared/services/impl/panier.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,8 +9,6 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-  private title: string | null = null;
-
   links: Link[] = [
     {
       name: 'Catalogue',
@@ -18,7 +17,6 @@ export class NavComponent {
       ariaCurrent: "page"
     },
   ];
-
 }
 interface Link {
   name: string;

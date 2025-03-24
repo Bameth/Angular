@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavComponent } from '../nav/nav.component';
+import { PanierService } from '../../../shared/services/impl/panier.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,6 @@ import { NavComponent } from '../nav/nav.component';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  constructor(public panierService: PanierService) { }
 
 }

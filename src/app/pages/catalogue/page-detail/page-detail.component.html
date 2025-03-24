@@ -111,18 +111,23 @@
                     <button
                         class="flex h-12 w-12 items-center justify-center rounded-l-md border border-gray-300 bg-gray-100 text-xl font-bold hover:bg-gray-200 transition-colors duration-200 active:bg-gray-300">-</button>
                     <label for="quantity" class="sr-only">Quantité</label>
-                    <input id="quantity" type="number" min="1" max="10"
+                    <input (keyup)="onValidateQte(qteCom.value)" #qteCom type="text" value="1" min="1" max="10"
+                        placeholder="Enter quantity"
                         class="h-12 w-16 border-y border-gray-300 text-center text-lg font-medium focus:outline-none focus:ring-2 focus:ring-black" />
                     <button
                         class="flex h-12 w-12 items-center justify-center rounded-r-md border border-gray-300 bg-gray-100 text-xl font-bold hover:bg-gray-200 transition-colors duration-200 active:bg-gray-300">+</button>
-                    <!-- <div *ngIf="errorMessage" class="ml-4 text-red-600 text-sm">{{errorMessage}}</div> -->
                 </div>
+                <!-- message d'erreur -->
+                <div class="text-red-500 text-sm">{{errorMessage}}</div>
             </div>
 
             <!-- Add to Cart -->
-            <button class="w-full h-14 text-lg bg-black text-white rounded-md hover:bg-gray-900 transition-colors">
+            <button type="button"
+                class="w-full h-14 text-lg bg-black text-white rounded-md hover:bg-gray-900 transition-colors"
+                [disabled]="disabledButton" (click)="onAddPanier()">
                 Ajouter au panier
             </button>
+
 
             <!-- Product Details -->
             <div class="mt-8 border-t pt-8">
@@ -177,6 +182,7 @@
             </div>
         </div>
     </div>
+    <h1 class="text-3xl mt-2 font-bold mb-4">Produits similaires</h1>
     <div class="relative overflow-hidden">
         <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @for(produit of produitDetail?.relatedProducts; track produit.id){

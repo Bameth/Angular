@@ -13,7 +13,7 @@ export class PanierService implements IPanierCatalogue {
     let montant: number = produit.quantiteCom! * prix;
     this.panierSignal.update(panier => ({
       ...panier,
-      produits: [...panier.produits, produit],
+      produits: this.updateProductList(panier.produits, produit),
       totalPanierHT: panier.totalPanierHT + montant,
       totalPanierTTC: (panier.totalPanierHT + montant) * (1 + panier.totalTVA),
     }))
@@ -23,6 +23,17 @@ export class PanierService implements IPanierCatalogue {
   }
   clearPanier(): void {
     this.panierSignal.set(this.initialiserPanier());
+  }
+
+  private updateProductList(produitsList: ProduitCatalogue[], newProduit: ProduitCatalogue): ProduitCatalogue[] {
+    let index: number = produitsList.findIndex(produit => newProduit.id === produit.id);
+    if (index >= 0) {
+      produitsList[index].quantiteCom! += newProduit.quantiteCom!;
+    }
+    else {
+      produitsList.push(newProduit);
+    }
+    return [...produitsList];
   }
   private initialiserPanier(): PanierCatalogue {
     return {

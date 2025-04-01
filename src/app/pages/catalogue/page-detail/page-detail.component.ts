@@ -49,7 +49,7 @@ export class PageDetailComponent implements OnInit {
     }
   }
   onAddPanier() {
-    alert('onAddPanier');
+    // alert('onAddPanier');
     this.panierService.addProduct({
       ...this.produitDetail?.produit!,
       quantiteCom: this.qteCom

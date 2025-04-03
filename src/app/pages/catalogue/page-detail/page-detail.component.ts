@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CatalogueService } from '../../../shared/services/impl/catalogue.service';
 import { ProduitDetail } from '../../../shared/model/catalogue.model';
-import { ProductItemComponent } from "../../../components/catalogue/product-item/product-item.component";
 import { PanierService } from '../../../shared/services/impl/panier.service';
+import { ProductItemComponent } from '../components/catalogue/product-item/product-item.component';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-page-detail',
   standalone: true,
-  imports: [ProductItemComponent],
+  imports: [ProductItemComponent,FormsModule],
   templateUrl: './page-detail.component.html',
   styleUrls: ['./page-detail.component.css']
 })
@@ -16,7 +17,7 @@ export class PageDetailComponent implements OnInit {
 
   produitDetail?: ProduitDetail;
   errorMessage: string = '';
-  qteCom: number = 0;
+  qteCom: number = 1;
   disabledButton: boolean = true;
 
   constructor(
@@ -31,20 +32,36 @@ export class PageDetailComponent implements OnInit {
     this.catalogueService.getProductsDetailCatalogue(id).subscribe((data) => {
       this.produitDetail = data;
       console.log("Données reçues :", data);
+      this.disabledButton = false;
     });
   }
   onValidateQte(qteCom: string): void {
-    if (qteCom === '') {
+    const parsedQte = Number(qteCom);
+
+    if (!qteCom.trim()) {
       this.errorMessage = 'La quantité ne peut pas être vide';
-    } else if (isNaN(Number(qteCom))) {
+    } else if (isNaN(parsedQte)) {
       this.errorMessage = 'La quantité doit être un nombre';
-    } else if (Number(qteCom) <= 0) {
+    } else if (parsedQte <= 0) {
       this.errorMessage = 'La quantité doit être supérieure à 0';
-    } else if (Number(qteCom) > this.produitDetail!.produit.quantiteStock) {
+    } else if (parsedQte > this.produitDetail!.produit.quantiteStock) {
       this.errorMessage = 'La quantité doit être inférieure ou égale au stock';
     } else {
       this.errorMessage = '';
-      this.qteCom = Number(qteCom);
+      this.qteCom = parsedQte;
+      this.disabledButton = false;
+    }
+  }
+
+  onIncrementQte(): void {
+    if (this.qteCom < this.produitDetail!.produit.quantiteStock) {
+      this.qteCom++;
+      this.disabledButton = false;
+    }
+  }
+  onDecrementQte(): void {
+    if (this.qteCom > 1) {
+      this.qteCom--;
       this.disabledButton = false;
     }
   }

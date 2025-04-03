@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProduitCatalogue } from '../../../shared/model/catalogue.model';
-import { PanierService } from '../../../shared/services/impl/panier.service';
+import { ProduitCatalogue } from '../../../../../shared/model/catalogue.model';
+import { PanierService } from '../../../../../shared/services/impl/panier.service';
+
 
 @Component({
   selector: 'app-product-item',

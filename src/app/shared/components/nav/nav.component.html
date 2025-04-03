@@ -1,0 +1,25 @@
+<!-- Navigation -->
+<nav class="hidden lg:flex ml-10">
+    <ul class="flex space-x-8">
+        @for (link of links; track link.path) {
+        @if (link.isVisible) {
+
+        <li>
+            <a routerLink="{{ link.path }}" routerLinkActive="text-black font-bold underline"
+                [routerLinkActiveOptions]="{ exact: true }" class="{{ link.class }}" aria-current="page">
+                {{ link.name }}
+            </a>
+        </li>
+        }
+        }
+        <li>
+            <a href="#" class="text-gray-800 hover:text-black relative font-medium group">Enfant</a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-black relative font-medium group">Collections</a>
+        </li>
+        <li>
+            <a href="#" class="text-gray-800 hover:text-black relative font-medium group">Nouveautés</a>
+        </li>
+    </ul>
+</nav>

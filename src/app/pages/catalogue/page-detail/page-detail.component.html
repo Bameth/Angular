@@ -108,13 +108,14 @@
             <div class="space-y-4">
                 <h3 class="font-semibold text-gray-800">Quantité</h3>
                 <div class="flex items-center">
-                    <button
+                    <button (click)="onDecrementQte()"
                         class="flex h-12 w-12 items-center justify-center rounded-l-md border border-gray-300 bg-gray-100 text-xl font-bold hover:bg-gray-200 transition-colors duration-200 active:bg-gray-300">-</button>
                     <label for="quantity" class="sr-only">Quantité</label>
-                    <input (keyup)="onValidateQte(qteCom.value)" #qteCom type="text" value="1" min="1" max="10"
+                    <input [(ngModel)]="qteCom" (keyup)="onValidateQte(qteCom.toString())" type="text" min="1" max="10"
                         placeholder="Enter quantity"
                         class="h-12 w-16 border-y border-gray-300 text-center text-lg font-medium focus:outline-none focus:ring-2 focus:ring-black" />
-                    <button
+
+                    <button (click)="onIncrementQte()"
                         class="flex h-12 w-12 items-center justify-center rounded-r-md border border-gray-300 bg-gray-100 text-xl font-bold hover:bg-gray-200 transition-colors duration-200 active:bg-gray-300">+</button>
                 </div>
                 <!-- message d'erreur -->

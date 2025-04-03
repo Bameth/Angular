@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ProductItemComponent } from "../../../components/catalogue/product-item/product-item.component";
 import { CatalogueService } from '../../../shared/services/impl/catalogue.service';
 import { ProduitCatalogue } from '../../../shared/model/catalogue.model';
+import { ProductItemComponent } from '../components/catalogue/product-item/product-item.component';
 
 @Component({
   selector: 'app-page-catalogue',

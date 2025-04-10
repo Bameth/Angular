@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-page-detail',
   standalone: true,
-  imports: [ProductItemComponent,FormsModule],
+  imports: [ProductItemComponent, FormsModule],
   templateUrl: './page-detail.component.html',
   styleUrls: ['./page-detail.component.css']
 })
@@ -49,9 +49,10 @@ export class PageDetailComponent implements OnInit {
     } else {
       this.errorMessage = '';
       this.qteCom = parsedQte;
-      this.disabledButton = false;
     }
+    this.disabledButton = !!this.errorMessage;
   }
+
 
   onIncrementQte(): void {
     if (this.qteCom < this.produitDetail!.produit.quantiteStock) {
@@ -66,7 +67,10 @@ export class PageDetailComponent implements OnInit {
     }
   }
   onAddPanier() {
-    // alert('onAddPanier');
+    if (this.qteCom <= 0 || this.qteCom > this.produitDetail!.produit.quantiteStock || !!this.errorMessage) {
+      this.errorMessage = 'Veuillez entrer une quantité valide.';
+      return;
+    }
     this.panierService.addProduct({
       ...this.produitDetail?.produit!,
       quantiteCom: this.qteCom

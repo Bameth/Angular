@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthentificationMockService } from '../../../shared/services/impl/authentification-mock.service';
 import { LoginResponse } from '../../../shared/model/user.model';
+import { PanierService } from '../../../shared/services/impl/panier.service';
+import { CommandeService } from '../../../shared/services/impl/commande.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.isLoading = true; 
+    this.isLoading = true;
 
     const { login, password } = this.formLogin.value;
     this.authService.login(login, password).subscribe({
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
             const query = this.route.snapshot.queryParams['link'];
             if (query === "panier") {
               this.router.navigateByUrl('/catalogue/commandes');
+              this.commandeService.addCommande(this.panierService.panierSignal())
             } else {
               this.router.navigateByUrl('/catalogue');
             }
@@ -60,7 +63,13 @@ export class LoginComponent implements OnInit {
   });
 
   formLogin2: FormGroup;
-  constructor(private builder: FormBuilder, private route: ActivatedRoute, private authService: AuthentificationMockService, private router: Router) {
+  constructor(private builder: FormBuilder,
+    private route: ActivatedRoute,
+    private panierService: PanierService,
+    private commandeService: CommandeService,
+    private authService: AuthentificationMockService,
+    private router: Router
+  ) {
     this.formLogin2 = this.builder.group({
       login: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]

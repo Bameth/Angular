@@ -23,3 +23,16 @@ export interface PanierCatalogue {
     totalTVA: number;
     date: Date;
 }
+
+export interface CommandeCatalogue {
+    montant: number;
+    date: Date;
+    clientId: number;
+    details: ProduitPanierCatalogue[];
+}
+
+export interface ProduitPanierCatalogue {
+    qte: number;
+    prix: number;
+    produitId: number;
+}

@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
           if (role === 'client') {
             const query = this.route.snapshot.queryParams['link'];
             if (query === "panier") {
+              this.commandeService.addCommande().subscribe(data => {
+                console.log(data);
+              })
               this.router.navigateByUrl('/catalogue/commandes');
-              this.commandeService.addCommande(this.panierService.panierSignal())
             } else {
               this.router.navigateByUrl('/catalogue');
             }
@@ -78,6 +80,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
       //add commande
+      if (this.authService.isClient() && this.panierService.panierSignal().produits.length > 0) {
+        this.commandeService.addCommande().subscribe();
+        this.router.navigateByUrl('/catalogue/commandes');
+      }
       this.router.navigateByUrl('/catalogue');
       // redirection vers page mes commandes
     }

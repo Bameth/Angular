@@ -2,18 +2,21 @@
 <div class="flex-1 px-4 sm:px-6 lg:px-8 py-8 bg-gray-50 min-h-screen">
     <div class="max-w-3xl mx-auto">
         <h1 class="text-2xl font-bold mb-6">MES COMMANDES</h1>
-        <p class="text-gray-600 mb-4">Bienvenue, {{ this.clientWithCommandes?.client?.firstName }} {{
-            this.clientWithCommandes?.client?.lastName }} !</p>
+        <p class="text-gray-600 mb-4">
+            Bienvenue, {{ clientWithCommandes?.results?.client?.firstName }} {{
+            clientWithCommandes?.results?.client?.lastName }} !
+        </p>
         <p class="text-gray-600 mb-6">Voici un aperçu de vos commandes passées.</p>
         <!-- Orders List -->
         <div class="space-y-6">
-            @for(commande of clientWithCommandes?.commandes; track commande.id){
+            @for(commande of clientWithCommandes?.results?.commandes; track commande.id){
             <!-- Order 1 -->
             <div class="bg-white rounded-lg border border-gray-200 mb-4 overflow-hidden">
                 <div class="p-4 sm:p-6">
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h3 class="text-lg font-bold mb-1">Commande NKY87654321</h3>
+                            <h3 class="text-lg font-bold mb-1">Commande {{commande.id}}</h3>
                             <p class="text-sm text-gray-600">Passée le {{commande.date}}</p>
                         </div>
                         <span
@@ -62,7 +65,7 @@
                         </p>
 
                         <div class="flex justify-between items-center mt-4">
-                            <p class="font-bold">Total: 129.99 €</p>
+                            <p class="font-bold">Total: {{commande.montant}}</p>
                             <button class="flex items-center text-sm font-medium text-black hover:underline">
                                 Voir les détails
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
@@ -76,19 +79,10 @@
                 </div>
             </div>
             }
-            <!-- Pagination Section -->
-            <div class="flex justify-between items-center mt-8">
-                <!-- Previous Page Button -->
-                <button
-                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100">Précédent</button>
-
-                <!-- Page Number (you can dynamically insert the current page number) -->
-                <span class="text-sm text-gray-600">Page 1 de 5</span>
-
-                <!-- Next Page Button -->
-                <button
-                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100">Suivant</button>
-            </div>
+            <app-pagination [pages]="pageList" [currentPage]="clientWithCommandes?.currentPage ?? 0"
+                [first]="clientWithCommandes?.first ?? true" [last]="clientWithCommandes?.last ?? true"
+                (onPageChange)="onPaginate($event)">
+            </app-pagination>
         </div>
     </div>
 </div>

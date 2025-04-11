@@ -3,7 +3,7 @@ import { CommandeCatalogue, PanierCatalogue } from "../model/catalogue.model";
 import { ClientWithCommandePaginateDto, Commande, CommandesResponse } from "../model/commande.model";
 
 export interface ICommandeService {
-    addCommande(commande: PanierCatalogue): Observable<Commande>;
+    addCommande(): Observable<Commande>;
     convertPanierToCommande(panier: PanierCatalogue): CommandeCatalogue;
-    getCommandesClientConnected(): Observable<CommandesResponse>;
+    getCommandesClientConnected(page: number, size: number): Observable<CommandesResponse>;
 }

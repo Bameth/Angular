@@ -12,8 +12,13 @@ import { AuthentificationMockService } from '../../services/impl/authentificatio
 })
 export class HeaderComponent {
   constructor(public panierService: PanierService, private router: Router, public authService: AuthentificationMockService) { }
-  onLogout() {
+  async onLogout() {
     this.authService.logout();
-    this.router.navigateByUrl('/catalogue');
+    this.router.navigateByUrl('.', {
+      skipLocationChange: true,
+    }).then(
+      () => {
+        this.router.navigate(['/catalogue']);
+      });
   }
 }

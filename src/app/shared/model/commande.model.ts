@@ -19,7 +19,7 @@ export interface ClientWithCommandePaginateDto {
 export interface CommandesResponse {
     results: ClientWithCommandePaginateDto;
     totalItems: number;
-    pages: number;
+    pages: number[];
     last: boolean;
     totalPages: number;
     currentPage: number;

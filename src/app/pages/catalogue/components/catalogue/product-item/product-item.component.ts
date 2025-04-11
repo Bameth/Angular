@@ -17,8 +17,12 @@ export class ProductItemComponent {
   }) produit!: ProduitCatalogue;
   constructor(public router: Router, private panierService: PanierService) {
   }
-  onLoadViewDetail(id: number) {
-    this.router.navigateByUrl(`/catalogue/detail/${id}`);
+  async onLoadViewDetail(id: number) {
+    this.router.navigateByUrl(`.`,
+      { skipLocationChange: true }
+    ).then(() => {
+      this.router.navigate([`/catalogue/detail/${id}`]);
+    });
   }
   onAddPanier(produit: ProduitCatalogue) {
     this.panierService.addProduct({

@@ -1,0 +1,23 @@
+<div class="flex justify-center items-center mt-8 space-x-2">
+    <!-- Previous Button -->
+    <button type="button" (click)="previousPage()" [disabled]="first"
+        class="px-3 py-1 text-sm rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50">
+        Précédent
+    </button>
+
+    <!-- Page Numbers -->
+    <ng-container *ngIf="pages.length > 0">
+        <button type="button" *ngFor="let page of pages" (click)="onPaginate(page)" [ngClass]="{
+                'bg-black text-white': page === currentPage,
+                'bg-white text-gray-700 hover:bg-gray-100': page !== currentPage
+              }" class="px-3 py-1 text-sm rounded-md border border-gray-300">
+            {{ page + 1 }}
+        </button>
+    </ng-container>
+
+    <!-- Next Button -->
+    <button type="button" (click)="nextPage()" [disabled]="last"
+        class="px-3 py-1 text-sm rounded-md border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50">
+        Suivant
+    </button>
+</div>

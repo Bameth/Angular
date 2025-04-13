@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CatalogueService } from '../../../shared/services/impl/catalogue.service';
 import { ProduitCatalogue } from '../../../shared/model/catalogue.model';
 import { ProductItemComponent } from '../components/catalogue/product-item/product-item.component';
+import { RestResponseModel } from '../../../shared/model/rest-response.model';
 
 @Component({
   selector: 'app-page-catalogue',
@@ -13,15 +14,14 @@ export class PageCatalogueComponent implements OnInit {
   // constructor(private catalogueService:CatalogueService ) {
   // }
   private catalogueService: CatalogueService = inject(CatalogueService);
-  products: ProduitCatalogue[] = [];
+  response?: RestResponseModel<ProduitCatalogue[]>;
   ngOnInit(): void {
-    this.catalogueService.getProductsCatalogues().subscribe(
-      data => {
-        console.log("Données reçues :", data);
-        this.products = data;
-      },
-      error => console.log("Erreur lors du chargement des produits :", error)
-    );
-        // this.products = this.catalogueService.produits;
-  }  
+    this.catalogueService.getAllWithPagination().subscribe(
+      {
+        next: data => this.response = data,
+        error: (err) => console.log(err),
+      }
+    )
+    // this.products = this.catalogueService.produits;
+  }
 }

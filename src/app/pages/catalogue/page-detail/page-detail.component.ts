@@ -5,6 +5,7 @@ import { ProduitDetail } from '../../../shared/model/catalogue.model';
 import { PanierService } from '../../../shared/services/impl/panier.service';
 import { ProductItemComponent } from '../components/catalogue/product-item/product-item.component';
 import { FormsModule } from '@angular/forms';
+import { RestResponseModel } from '../../../shared/model/rest-response.model';
 @Component({
   selector: 'app-page-detail',
   standalone: true,
@@ -15,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class PageDetailComponent implements OnInit {
 
 
-  produitDetail?: ProduitDetail;
+  response?: RestResponseModel<ProduitDetail>;
   errorMessage: string = '';
   qteCom: number = 1;
   disabledButton: boolean = true;
@@ -29,11 +30,13 @@ export class PageDetailComponent implements OnInit {
   ngOnInit(): void {
     let id = this.route.snapshot.params['product_id'];
     console.log('Product ID:', id);
-    this.catalogueService.getProductsDetailCatalogue(id).subscribe((data) => {
-      this.produitDetail = data;
-      console.log("Données reçues :", data);
-      this.disabledButton = false;
-    });
+    this.catalogueService.getProductsDetailCatalogue(id).subscribe(
+      {
+        next: (data) => {
+          this.response = data
+        },
+        error: (err) => console.log(err),
+      });
   }
   onValidateQte(qteCom: string): void {
     const parsedQte = Number(qteCom);
@@ -44,7 +47,7 @@ export class PageDetailComponent implements OnInit {
       this.errorMessage = 'La quantité doit être un nombre';
     } else if (parsedQte <= 0) {
       this.errorMessage = 'La quantité doit être supérieure à 0';
-    } else if (parsedQte > this.produitDetail!.produit.quantiteStock) {
+    } else if (parsedQte > this.response!.results.produit.quantiteStock) {
       this.errorMessage = 'La quantité doit être inférieure ou égale au stock';
     } else {
       this.errorMessage = '';
@@ -55,7 +58,7 @@ export class PageDetailComponent implements OnInit {
 
 
   onIncrementQte(): void {
-    if (this.qteCom < this.produitDetail!.produit.quantiteStock) {
+    if (this.qteCom < this.response!.results.produit.quantiteStock) {
       this.qteCom++;
       this.disabledButton = false;
     }
@@ -67,12 +70,12 @@ export class PageDetailComponent implements OnInit {
     }
   }
   onAddPanier() {
-    if (this.qteCom <= 0 || this.qteCom > this.produitDetail!.produit.quantiteStock || !!this.errorMessage) {
+    if (this.qteCom <= 0 || this.qteCom > this.response!.results.produit.quantiteStock || !!this.errorMessage) {
       this.errorMessage = 'Veuillez entrer une quantité valide.';
       return;
     }
     this.panierService.addProduct({
-      ...this.produitDetail?.produit!,
+      ...this.response?.results.produit!,
       quantiteCom: this.qteCom
     });
   }

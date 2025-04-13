@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ClientWithCommandePaginateDto, Commande, CommandesResponse } from '../../model/commande.model';
 import { PanierService } from './panier.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class CommandeService implements ICommandeService {
 
   constructor(private authService: AuthentificationMockService, private panierService: PanierService, private httpClient: HttpClient) { }
   getCommandesClientConnected(page: number = 0, size: number = 5): Observable<CommandesResponse> {
-    return this.httpClient.get<CommandesResponse>(`http://localhost:9090/api/commandes/client/${this.authService.currentUserSignal()?.id}?page=${page}&size=${size}`);
+    return this.httpClient.get<CommandesResponse>(`${environment.apiUrl}/commandes/client/${this.authService.currentUserSignal()?.id}?page=${page}&size=${size}`);
   }
   addCommande(): Observable<Commande> {
-    let result: Observable<Commande> = this.httpClient.post<Commande>('http://localhost:9090/api/commandes/create', this.convertPanierToCommande(this.panierService.panierSignal()));
+    let result: Observable<Commande> = this.httpClient.post<Commande>(`${environment.apiUrl}/commandes/create`, this.convertPanierToCommande(this.panierService.panierSignal()));
     this.panierService.clearPanier();
     return result;
   }

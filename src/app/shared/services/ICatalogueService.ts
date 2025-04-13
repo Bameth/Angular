@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { ProduitCatalogue, ProduitDetail } from "../model/catalogue.model";
+import { RestResponseModel } from "../model/rest-response.model";
 
 export interface ICatalogueService {
-    getProductsCatalogues(): Observable<ProduitCatalogue[]>;
-    getProductsDetailCatalogue(produitId: number): Observable<ProduitDetail>;
+    getProductsDetailCatalogue(produitId: number): Observable<RestResponseModel<ProduitDetail>>;
 }

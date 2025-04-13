@@ -3,7 +3,7 @@
         <!-- Product Images -->
         <div class="space-y-4">
             <div class="aspect-square rounded-lg overflow-hidden bg-gray-100">
-                <img src="{{produitDetail?.produit?.image}}" alt="Nike Zoom" class="w-full h-full object-cover" />
+                <img src="{{response!.results.produit.image}}" alt="Nike Zoom" class="w-full h-full object-cover" />
             </div>
             <div class="grid grid-cols-4 gap-4">
                 <div class="aspect-square rounded-lg overflow-hidden bg-gray-100 cursor-pointer hover:opacity-75">
@@ -28,8 +28,8 @@
         <!-- Product Info -->
         <div class="space-y-6">
             <div>
-                <h1 class="text-3xl font-bold mb-2">{{produitDetail?.produit?.name}}</h1>
-                <p class="text-xl text-gray-900 mb-4">{{produitDetail?.produit?.oldPrice}}</p>
+                <h1 class="text-3xl font-bold mb-2">{{response!.results.produit.name}}</h1>
+                <p class="text-xl text-gray-900 mb-4">{{response!.results.produit.oldPrice}}</p>
                 <div class="flex items-center gap-1 mb-4">
                     <svg class="w-5 h-5 text-yellow-400 fill-yellow-400" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
                     </button>
                     <div id="description" class="pb-4">
                         <p class="text-gray-600">
-                            {{produitDetail?.produit?.description}}
+                            {{response!.results.produit.description}}
                         </p>
                     </div>
                 </div>
@@ -186,7 +186,7 @@
     <h1 class="text-3xl mt-2 font-bold mb-4">Produits similaires</h1>
     <div class="relative overflow-hidden">
         <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            @for(produit of produitDetail?.relatedProducts; track produit.id){
+            @for(produit of response!.results.relatedProducts; track produit.id){
             <app-product-item [produit]="produit" />
             }
         </div>

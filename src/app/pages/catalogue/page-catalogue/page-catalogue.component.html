@@ -24,7 +24,7 @@
   </div>
   <div class="relative overflow-hidden">
     <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      @for(produit of products; track produit.id){
+      @for(produit of response?.results; track produit.id){
       <app-product-item [produit]="produit"/>
       }
     </div>
